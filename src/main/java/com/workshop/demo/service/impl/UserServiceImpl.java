@@ -1,0 +1,53 @@
+package com.workshop.demo.service.impl;
+
+import com.workshop.demo.model.entities.RoleEntity;
+import com.workshop.demo.model.entities.UserEntity;
+import com.workshop.demo.model.entities.enums.RoleEnum;
+import com.workshop.demo.repository.RoleRepository;
+import com.workshop.demo.repository.UserRepository;
+import com.workshop.demo.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void seedUsers() {
+
+        if (userRepository.count() == 0) {
+
+            RoleEntity adminRole = new RoleEntity();
+            RoleEntity userRole = new RoleEntity();
+
+            adminRole.setRole(RoleEnum.ADMIN);
+            userRole.setRole(RoleEnum.USER);
+
+            roleRepository.saveAll(List.of(adminRole, userRole));
+
+            UserEntity admin = new UserEntity();
+            admin.setName("admin");
+            admin.setPassword(passwordEncoder.encode("topsecret"));
+            admin.setRoles(List.of(adminRole, userRole));
+
+            UserEntity user = new UserEntity();
+            user.setName("user");
+            user.setPassword(passwordEncoder.encode("topsecret"));
+            user.setRoles(List.of(userRole));
+
+            userRepository.saveAll(List.of(admin, user));
+        }
+    }
+}
