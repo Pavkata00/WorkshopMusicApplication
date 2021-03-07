@@ -1,26 +1,27 @@
 package com.workshop.demo.model.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
 
-    private String name;
+    private String username;
     private String password;
-    private List<RoleEntity> roles;
+    private List<RoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
     }
 
     @Column(name = "name", nullable = false)
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     @Column(name = "password", nullable = false)

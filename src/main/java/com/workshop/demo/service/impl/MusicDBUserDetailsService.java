@@ -24,7 +24,7 @@ public class MusicDBUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = this.userRepository.findByName(username).
+        UserEntity userEntity = this.userRepository.findByUsername(username).
                 orElseThrow(() ->new UsernameNotFoundException("User with name " + username + " not found!"));
 
         return mapUser(userEntity);
@@ -32,8 +32,9 @@ public class MusicDBUserDetailsService implements UserDetailsService {
 
     private UserDetails mapUser(UserEntity userEntity) {
         List<GrantedAuthority> grantedAuthorities =
-                userEntity.getRoles().stream().map(roleEntity -> new SimpleGrantedAuthority(roleEntity.getRole().name())).collect(Collectors.toList());
+                userEntity.getRoles().stream().map(roleEntity -> new SimpleGrantedAuthority("ROLE_" + roleEntity.getRole().name())).
+                        collect(Collectors.toList());
 
-        return new User(userEntity.getName(),userEntity.getPassword(),grantedAuthorities);
+        return new User(userEntity.getUsername(),userEntity.getPassword(),grantedAuthorities);
     }
 }
