@@ -78,4 +78,9 @@ public class UserServiceImpl implements UserService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
+
+    @Override
+    public boolean usernameExists(String username) {
+        return this.userRepository.findByUsername(username).isPresent();
+    }
 }

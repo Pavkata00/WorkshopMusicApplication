@@ -35,8 +35,8 @@
                           <small th:if="${#fields.hasErrors('username')}" th:errors="*{username}" id="usernameError"
                                class="invalid-feedback text-light form-text bg-danger rounded">Username length must be more than 3 characters!!!!</small>
 
-<!--       TODO                 <small id="usernameUniqueError"-->
-<!--                               class="text-light form-text bg-danger rounded">Username is already occupied</small>-->
+                        <small th:if="${userExists}" id="usernameUniqueError"
+                               class="text-light form-text bg-danger rounded">Username is already occupied</small>
 
                     </div>
                 </div>
