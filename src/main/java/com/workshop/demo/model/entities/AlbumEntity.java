@@ -10,31 +10,32 @@ import java.time.Instant;
 @Table(name = "albums")
 public class AlbumEntity extends BaseEntity {
 
-    @Column(nullable = false)
+
     private String name;
-    @Column(nullable = false)
+
     private String imageUrl;
     private String videoUrl;
-    @Column(nullable = false)
+
     private String description;
-    @Column(nullable = false)
+
     private Integer copies;
-    @Column(nullable = false)
+
     private BigDecimal price;
-    @Column(nullable = false)
+
     private Instant releaseDate;
-    @Enumerated(EnumType.STRING)
+
     private GenreEnum genre;
 
-    @ManyToOne
+
     private ArtistEntity artist;
 
-    @ManyToOne
+
     private UserEntity userEntity;
 
     public AlbumEntity() {
     }
 
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -43,6 +44,7 @@ public class AlbumEntity extends BaseEntity {
         this.name = name;
     }
 
+    @Column(name = "image_url" , nullable = false)
     public String getImageUrl() {
         return imageUrl;
     }
@@ -51,6 +53,7 @@ public class AlbumEntity extends BaseEntity {
         this.imageUrl = imageUrl;
     }
 
+    @Column(name = "video_url",nullable = false)
     public String getVideoUrl() {
         return videoUrl;
     }
@@ -59,6 +62,7 @@ public class AlbumEntity extends BaseEntity {
         this.videoUrl = videoUrl;
     }
 
+    @Column(nullable = false,columnDefinition = "TEXT")
     public String getDescription() {
         return description;
     }
@@ -67,6 +71,7 @@ public class AlbumEntity extends BaseEntity {
         this.description = description;
     }
 
+    @Column(nullable = false)
     public Integer getCopies() {
         return copies;
     }
@@ -75,6 +80,7 @@ public class AlbumEntity extends BaseEntity {
         this.copies = copies;
     }
 
+    @Column(nullable = false)
     public BigDecimal getPrice() {
         return price;
     }
@@ -83,6 +89,7 @@ public class AlbumEntity extends BaseEntity {
         this.price = price;
     }
 
+    @Column(name = "release_date", nullable = false)
     public Instant getReleaseDate() {
         return releaseDate;
     }
@@ -91,6 +98,7 @@ public class AlbumEntity extends BaseEntity {
         this.releaseDate = releaseDate;
     }
 
+    @Enumerated(EnumType.STRING)
     public GenreEnum getGenre() {
         return genre;
     }
@@ -99,6 +107,7 @@ public class AlbumEntity extends BaseEntity {
         this.genre = genre;
     }
 
+    @ManyToOne
     public ArtistEntity getArtist() {
         return artist;
     }
@@ -107,6 +116,7 @@ public class AlbumEntity extends BaseEntity {
         this.artist = artist;
     }
 
+    @ManyToOne
     public UserEntity getUserEntity() {
         return userEntity;
     }
